@@ -1,5 +1,5 @@
 [package]
-name = "sdts"
+name = "simple_discrete_time_system"
 version = "0.1.0"
 edition = "2021"
 
