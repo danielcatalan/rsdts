@@ -6,13 +6,13 @@ pub struct XSeries<const XSIZE: usize> {
 }
 
 impl<const XSIZE: usize> XSeries<XSIZE> {
-    fn new() -> Self {
+    pub fn new() -> Self {
         XSeries {
             signal: Signal::new(),
         }
     }
 
-    fn push(&mut self, x: f64) {
+    pub fn push(&mut self, x: f64) {
         self.signal.push(x);
     }
 }
