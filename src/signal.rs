@@ -30,11 +30,22 @@ impl<const SIZE: usize> Signal<SIZE> {
         &self._signal[i]
     }
 
+    pub fn get_index_mut(&mut self, inx: i32) -> &mut f64 {
+        let i: usize = self.GetCorrectedIndex(inx) ;
+        &mut self._signal[i]
+    }
+
     pub fn push(&mut self, x: f64) 
     {
         self.zero_index = (self.zero_index + 1) % SIZE;
 
         self._signal[self.zero_index] = x;
+    }
+
+    pub fn shift(&mut self)
+    {
+        let zero_index  = &self.zero_index;
+        self.zero_index = (zero_index + 1) % SIZE;
     }
 
 }
