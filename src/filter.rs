@@ -2,7 +2,7 @@ use crate::input_signal::XSeries;
 use crate::output_signals::YSeries;
 
 pub struct DifferenceEquation<const X: usize, const Y: usize, F: Fn(&XSeries<X>,&mut YSeries<Y>)> {
-    pub functor: F,
+    functor: F,
     xin: XSeries<X>,
     yout: YSeries<Y>,
 }
