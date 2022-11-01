@@ -1,4 +1,4 @@
-mod filter;
+pub mod filter;
 mod signal;
 mod input_signal;
 mod output_signals;
