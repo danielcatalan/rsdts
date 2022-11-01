@@ -1,4 +1,3 @@
-use std::ops::Index;
 
 pub(crate) struct Signal<const SIZE: usize>{
     pub _signal: [f64; SIZE],
