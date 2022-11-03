@@ -1,13 +1,18 @@
 use crate::input_signal::XSeries;
 use crate::output_signals::YSeries;
 
+pub trait DiffEq{
+
+    fn filt(&mut self, x: f64) -> f64;
+}
+
 pub struct DifferenceEquation<const X: usize, const Y: usize, F: Fn(&XSeries<X>,&mut YSeries<Y>)> {
     functor: F,
     xin: XSeries<X>,
     yout: YSeries<Y>,
 }
 
-impl<const X: usize, const Y: usize, F: Fn(&XSeries<X>,&mut YSeries<Y>)> DifferenceEquation<X, Y, F> {
+impl<const X: usize, const Y: usize, F: Fn(&XSeries<X>,&mut YSeries<Y>)> DifferenceEquation<X,Y,F> {
     fn new(function: F) -> Self {
         DifferenceEquation {
             functor: function,
@@ -15,8 +20,10 @@ impl<const X: usize, const Y: usize, F: Fn(&XSeries<X>,&mut YSeries<Y>)> Differe
             yout: YSeries::new(),
         }
     }
+}
+impl<const X: usize, const Y: usize, F: Fn(&XSeries<X>,&mut YSeries<Y>)> DiffEq for DifferenceEquation<X,Y,F>{
 
-    pub fn filt(&mut self, x: f64) -> f64 {
+    fn filt(&mut self, x: f64) -> f64 {
         self.xin.push(x);
         self.yout.shift();
 
