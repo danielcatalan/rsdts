@@ -13,16 +13,12 @@ fn foo() -> Box<dyn DiffEq>{
 
 fn main(){
 
-    {
-        let mut filter1 = foo(); 
+    let mut filter1 = foo(); 
 
-        for _ in 0..10{
-            let y = filter1.filt(1.0);
+    for _ in 0..10{
+        let y = filter1.filt(1.0);
 
-            print!("{y:.3}, ");
-        }
-        println!();
+        print!("{y:.3}, ");
     }
-
-
+    println!();
 }
