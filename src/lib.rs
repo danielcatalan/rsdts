@@ -6,7 +6,7 @@ mod output_signals;
 #[cfg(test)]
 mod tests {
 
-    use crate::filter::{FilterCreator,DiffEq};
+    use crate::filter::{FilterCreator,Filter};
 
     #[test]
     fn in_out() {

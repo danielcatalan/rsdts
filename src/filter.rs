@@ -1,7 +1,7 @@
 use crate::input_signal::XSeries;
 use crate::output_signals::YSeries;
 
-pub trait DiffEq{
+pub trait Filter{
 
     fn filt(&mut self, x: f64) -> f64;
 }
@@ -21,7 +21,8 @@ impl<const X: usize, const Y: usize, F: Fn(&XSeries<X>,&mut YSeries<Y>)> Differe
         }
     }
 }
-impl<const X: usize, const Y: usize, F: Fn(&XSeries<X>,&mut YSeries<Y>)> DiffEq for DifferenceEquation<X,Y,F>{
+
+impl<const X: usize, const Y: usize, F: Fn(&XSeries<X>,&mut YSeries<Y>)> Filter for DifferenceEquation<X,Y,F>{
 
     fn filt(&mut self, x: f64) -> f64 {
         self.xin.push(x);

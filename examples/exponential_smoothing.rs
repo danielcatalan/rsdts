@@ -1,8 +1,8 @@
 
-use simple_discrete_time_system::filter::{FilterCreator,DiffEq};
+use simple_discrete_time_system::filter::{FilterCreator, Filter};
 
 
-fn foo() -> Box<dyn DiffEq>{
+fn foo() -> Box<dyn Filter>{
     let alpha = 0.1;
 
     let filter1 = Box::new(FilterCreator::<1,2>::create_filter(move |x,y|{
