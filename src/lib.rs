@@ -6,12 +6,12 @@ mod output_signals;
 #[cfg(test)]
 mod tests {
 
-    use crate::filter::{Filter,DiffEq};
+    use crate::filter::{FilterCreator,DiffEq};
 
     #[test]
     fn in_out() {
 
-        let mut filter = Filter::<2, 2>::create_filter(|x, y| {
+        let mut filter = FilterCreator::<2, 2>::create_filter(|x, y| {
             y[0] = x[0];
         });
 
@@ -28,7 +28,7 @@ mod tests {
     #[test]
     fn delay() {
 
-        let mut filter = Filter::<2, 2>::create_filter(|x, y| {
+        let mut filter = FilterCreator::<2, 2>::create_filter(|x, y| {
             y[0] = x[-1];
         });
 
