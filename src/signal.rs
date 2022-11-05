@@ -12,7 +12,7 @@ impl<const SIZE: usize> Signal<SIZE> {
         }
     }
 
-    fn GetCorrectedIndex(&self, n: i32) ->usize {
+    fn get_corrected_index(&self, n: i32) ->usize {
         if n < 0
         {
 
@@ -25,12 +25,12 @@ impl<const SIZE: usize> Signal<SIZE> {
 
 
     pub fn get_index(&self, inx: i32) -> &f64 {
-        let i: usize = self.GetCorrectedIndex(inx) ;
+        let i: usize = self.get_corrected_index(inx) ;
         &self._signal[i]
     }
 
     pub fn get_index_mut(&mut self, inx: i32) -> &mut f64 {
-        let i: usize = self.GetCorrectedIndex(inx) ;
+        let i: usize = self.get_corrected_index(inx) ;
         &mut self._signal[i]
     }
 
