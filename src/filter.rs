@@ -1,18 +1,24 @@
 use crate::input_signal::XSeries;
 use crate::output_signals::YSeries;
 
-pub trait Filter{
-
+pub trait Filter {
     fn filt(&mut self, x: f64) -> f64;
 }
 
-pub struct DifferenceEquation<const X: usize, const Y: usize, F: Fn(&XSeries<X>,&mut YSeries<Y>)> {
+// pub struct DifferenceEquation<const X: usize, const Y: usize, F: Fn(&XSeries<X>,&mut YSeries<Y>)> {
+pub struct DifferenceEquation<const X: usize, const Y: usize, F>
+where
+    F: Fn(&XSeries<X>, &mut YSeries<Y>),
+{
     functor: F,
     xin: XSeries<X>,
     yout: YSeries<Y>,
 }
 
-impl<const X: usize, const Y: usize, F: Fn(&XSeries<X>,&mut YSeries<Y>)> DifferenceEquation<X,Y,F> {
+impl<const X: usize, const Y: usize, F> DifferenceEquation<X, Y, F>
+where
+    F: Fn(&XSeries<X>, &mut YSeries<Y>),
+{
     fn new(function: F) -> Self {
         DifferenceEquation {
             functor: function,
@@ -22,8 +28,10 @@ impl<const X: usize, const Y: usize, F: Fn(&XSeries<X>,&mut YSeries<Y>)> Differe
     }
 }
 
-impl<const X: usize, const Y: usize, F: Fn(&XSeries<X>,&mut YSeries<Y>)> Filter for DifferenceEquation<X,Y,F>{
-
+impl<const X: usize, const Y: usize, F> Filter for DifferenceEquation<X, Y, F>
+where
+    F: Fn(&XSeries<X>, &mut YSeries<Y>),
+{
     fn filt(&mut self, x: f64) -> f64 {
         self.xin.push(x);
         self.yout.shift();
@@ -36,8 +44,11 @@ impl<const X: usize, const Y: usize, F: Fn(&XSeries<X>,&mut YSeries<Y>)> Filter 
 
 pub struct FilterCreator<const X: usize, const Y: usize> {}
 
-impl<const X: usize, const Y: usize>  FilterCreator<X, Y> {
-    pub fn create_filter<F: Fn(&XSeries<X>,&mut YSeries<Y>)>(function: F) -> DifferenceEquation<X, Y, F> {
+impl<const X: usize, const Y: usize> FilterCreator<X, Y> {
+    pub fn create_filter<F>(function: F) -> DifferenceEquation<X, Y, F>
+    where
+        F: Fn(&XSeries<X>, &mut YSeries<Y>),
+    {
         DifferenceEquation::new(function)
     }
 }
