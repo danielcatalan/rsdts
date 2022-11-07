@@ -1,5 +1,5 @@
 
-use simple_discrete_time_system::filter::{FilterCreator, Filter};
+use sdts::filter::{FilterCreator, Filter};
 
 
 fn foo() -> Box<dyn Filter>{
