@@ -2,7 +2,7 @@ use sdts::filter::FilterCreator;
 use sdts::filter::Filter;
 
 #[test]
-pub fn filter1() {
+pub fn straight_through() {
     let mut filt1 = FilterCreator::<1,1>::create_filter(|x,y|{
         y[0] = x[0];
     });
