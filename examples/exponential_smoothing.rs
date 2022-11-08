@@ -1,13 +1,13 @@
 
-use sdts::filter::{FilterCreator, Filter};
-
+use sdts::{Filter,create_filter,FilterCreator};
 
 fn foo() -> Box<dyn Filter>{
     let alpha = 0.9;
 
-    let filter1 = Box::new(FilterCreator::<1,2>::create_filter(move |x,y|{
+    let filter1 = Box::new(create_filter!(1,2, move |x,y| {
         y[0] = alpha * x[0] + (1.0-alpha) * y[-1];
     }));
+
     return filter1;
 }
 

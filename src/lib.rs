@@ -1,12 +1,14 @@
-pub mod filter;
+mod filter;
 mod signal;
 mod input_signal;
 mod output_signals;
 
+pub use filter::{FilterCreator,Filter};
+
 #[cfg(test)]
 mod tests {
 
-    use crate::{filter::{FilterCreator,Filter}, create_filter};
+    use crate::{FilterCreator,create_filter, Filter};
 
     #[test]
     fn in_out() {

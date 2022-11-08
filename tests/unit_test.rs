@@ -1,5 +1,5 @@
-use sdts::filter::FilterCreator;
-use sdts::filter::Filter;
+use sdts::FilterCreator;
+use sdts::Filter;
 
 #[test]
 pub fn straight_through() {
