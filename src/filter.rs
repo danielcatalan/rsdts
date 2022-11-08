@@ -5,7 +5,7 @@ pub trait Filter {
     fn filt(&mut self, x: f64) -> f64;
 }
 
-// pub struct DifferenceEquation<const X: usize, const Y: usize, F: Fn(&XSeries<X>,&mut YSeries<Y>)> {
+
 pub struct DifferenceEquation<const X: usize, const Y: usize, F>
 where
     F: Fn(&XSeries<X>, &mut YSeries<Y>),
@@ -51,4 +51,10 @@ impl<const X: usize, const Y: usize> FilterCreator<X, Y> {
     {
         DifferenceEquation::new(function)
     }
+}
+
+#[macro_export] macro_rules! create_filter {
+    ($XS:literal, $YS:literal, $e:expr) => {
+        FilterCreator::<$XS,$YS>::create_filter($e)
+    };
 }

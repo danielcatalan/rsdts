@@ -6,14 +6,14 @@ mod output_signals;
 #[cfg(test)]
 mod tests {
 
-    use crate::filter::{FilterCreator,Filter};
+    use crate::{filter::{FilterCreator,Filter}, create_filter};
 
     #[test]
     fn in_out() {
 
-        let mut filter = FilterCreator::<2, 2>::create_filter(|x, y| {
-            y[0] = x[0];
-        });
+        let mut filter = create_filter!(1,1,|x, y| {
+            y[0] = x[0];}
+        );
 
         let x_in: [f64; 6] = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0];
         let mut y_out: [f64; 6] = [0.0; 6];
@@ -28,7 +28,7 @@ mod tests {
     #[test]
     fn delay() {
 
-        let mut filter = FilterCreator::<2, 2>::create_filter(|x, y| {
+        let mut filter = create_filter!(2,2,|x, y| {
             y[0] = x[-1];
         });
 
