@@ -1,6 +1,6 @@
 
 
-pub(crate) struct Signal<NumType,const SIZE: usize>{
+pub struct Signal<NumType,const SIZE: usize>{
     pub _signal: [NumType; SIZE],
     pub zero_index: usize
 }
