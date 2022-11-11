@@ -1,5 +1,6 @@
 use crate::signal::Signal;
 use std::ops::Index;
+use std::marker::Copy;
 
 pub struct XSeries<NumType,const XSIZE: usize> {
     signal: Signal<NumType,XSIZE>,
@@ -17,7 +18,10 @@ impl<NumType:Default+ std::marker::Copy,const XSIZE: usize> XSeries<NumType,XSIZ
     }
 }
 
-impl<NumType:Default+ std::marker::Copy, const XSIZE: usize> Index<i32> for XSeries<NumType, XSIZE > {
+impl<NumType, const XSIZE: usize> Index<i32> for XSeries<NumType, XSIZE >
+where
+    NumType:Default + Copy
+{
     type Output = NumType;
     fn index(&self, inx: i32) -> &Self::Output {
         self.signal.get_index(inx)
