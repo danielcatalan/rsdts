@@ -1,9 +1,18 @@
+use std::marker::Copy;
+
+/// Signal
+///
+/// An array-like FIFO container that deals with elements in present and past terms
+///
 pub struct Signal<NumType, const SIZE: usize> {
     _signal: [NumType; SIZE],
     zero_index: usize,
 }
 
-impl<NumType: Default + std::marker::Copy, const SIZE: usize> Signal<NumType, SIZE> {
+impl<NumType, const SIZE: usize> Signal<NumType, SIZE>
+where
+    NumType: Default + Copy,
+{
     pub fn new() -> Self {
         Signal {
             _signal: [NumType::default(); SIZE],
@@ -91,5 +100,4 @@ mod test {
         series.shift();
         assert_eq!(series.zero_index, 0);
     }
-
 }
