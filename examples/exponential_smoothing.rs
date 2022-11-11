@@ -1,10 +1,10 @@
 
 use sdts::{Filter,create_filter,FilterCreator};
 
-fn exp_smooth(a:f64) -> Box<dyn Filter>{
-    Box::new(create_filter!(1,2, move |x,y| {
+fn exp_smooth(a:f64) -> impl Filter{
+    create_filter!(1,2, move |x,y| {
         y[0] = a * x[0] + (1.0-a) * y[-1];
-    }))
+    })
 }
 
 fn main(){
