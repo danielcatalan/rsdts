@@ -59,11 +59,37 @@ mod test {
     fn push() {
         let mut series = Signal::<f64, 4>::new();
 
-        // push values from 1 to 5
-        for i in 1..=5 {
-            series.push(i as f64);
-        }
+        series.push(1.0);
+        assert_eq!(series._signal, [1.0, 0.0, 0.0, 0.0]);
+        assert_eq!(series.zero_index, 0);
+        series.push(2.0);
+        assert_eq!(series._signal, [1.0, 2.0, 0.0, 0.0]);
+        assert_eq!(series.zero_index, 1);
+        series.push(3.0);
+        assert_eq!(series._signal, [1.0, 2.0, 3.0, 0.0]);
+        assert_eq!(series.zero_index, 2);
+        series.push(4.0);
+        assert_eq!(series._signal, [1.0, 2.0, 3.0, 4.0]);
+        assert_eq!(series.zero_index, 3);
+        series.push(5.0);
         assert_eq!(series._signal, [5.0, 2.0, 3.0, 4.0]);
         assert_eq!(series.zero_index, 0);
     }
+
+    #[test]
+    fn shift() {
+        let mut series = Signal::<f64, 4>::new();
+
+        series.shift();
+        assert_eq!(series.zero_index, 0);
+        series.shift();
+        assert_eq!(series.zero_index, 1);
+        series.shift();
+        assert_eq!(series.zero_index, 2);
+        series.shift();
+        assert_eq!(series.zero_index, 3);
+        series.shift();
+        assert_eq!(series.zero_index, 0);
+    }
+
 }
