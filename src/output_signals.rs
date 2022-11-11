@@ -2,11 +2,11 @@ use crate::signal::Signal;
 use std::ops::{Index,IndexMut};
 
 
-pub struct YSeries<const YSIZE: usize> {
-    signal: Signal<YSIZE>,
+pub struct YSeries<NumType,const YSIZE: usize> {
+    signal: Signal<NumType,YSIZE>,
 }
 
-impl<const YSIZE: usize> YSeries<YSIZE> {
+impl<NumType:Default+ std::marker::Copy,const YSIZE: usize> YSeries<NumType,YSIZE> {
 
     pub fn new() -> Self{
         YSeries {
@@ -19,14 +19,14 @@ impl<const YSIZE: usize> YSeries<YSIZE> {
     }
 }
 
-impl<const YSIZE: usize> Index<i32> for YSeries<{ YSIZE }> {
-    type Output = f64;
+impl<NumType:Default+ std::marker::Copy,const YSIZE: usize> Index<i32> for YSeries<NumType, YSIZE> {
+    type Output = NumType;
     fn index(&self, inx: i32) -> &Self::Output {
         self.signal.get_index(inx)
     }
 }
 
-impl<const YSIZE: usize> IndexMut<i32> for YSeries<{ YSIZE }> {
+impl<NumType:Default+ std::marker::Copy,const YSIZE: usize> IndexMut<i32> for YSeries<NumType, YSIZE> {
     fn index_mut(&mut self, inx: i32) -> &mut Self::Output {
         self.signal.get_index_mut(inx)
     }
@@ -40,7 +40,7 @@ mod tests {
 
     #[test]
     fn yseries(){
-        let mut y_series = YSeries::<3>::new();
+        let mut y_series = YSeries::<f64,3>::new();
 
         assert_eq!(y_series[0], 0.0);
         assert_eq!(y_series[-1], 0.0);

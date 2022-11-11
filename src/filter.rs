@@ -1,23 +1,25 @@
+use std::marker::PhantomData;
+
 use crate::input_signal::XSeries;
 use crate::output_signals::YSeries;
 
-pub trait Filter {
-    fn filt(&mut self, x: f64) -> f64;
+pub trait Filter<NumType> {
+    fn filt(&mut self, x: NumType) -> NumType;
 }
 
 
-pub struct DifferenceEquation<const X: usize, const Y: usize, F>
+pub struct DifferenceEquation<NumType,const X: usize, const Y: usize, F>
 where
-    F: Fn(&XSeries<X>, &mut YSeries<Y>),
+    F: Fn(&XSeries<NumType,X>, &mut YSeries<NumType,Y>),
 {
     functor: F,
-    xin: XSeries<X>,
-    yout: YSeries<Y>,
+    xin: XSeries<NumType,X>,
+    yout: YSeries<NumType,Y>,
 }
 
-impl<const X: usize, const Y: usize, F> DifferenceEquation<X, Y, F>
+impl<NumType:Default+ std::marker::Copy,const X: usize, const Y: usize, F> DifferenceEquation<NumType,X, Y, F>
 where
-    F: Fn(&XSeries<X>, &mut YSeries<Y>),
+    F: Fn(&XSeries<NumType,X>, &mut YSeries<NumType,Y>),
 {
     fn new(function: F) -> Self {
         DifferenceEquation {
@@ -28,11 +30,11 @@ where
     }
 }
 
-impl<const X: usize, const Y: usize, F> Filter for DifferenceEquation<X, Y, F>
+impl<NumType:Default+ std::marker::Copy,const X: usize, const Y: usize, F> Filter<NumType> for DifferenceEquation<NumType,X, Y, F>
 where
-    F: Fn(&XSeries<X>, &mut YSeries<Y>),
+    F: Fn(&XSeries<NumType,X>, &mut YSeries<NumType,Y>),
 {
-    fn filt(&mut self, x: f64) -> f64 {
+    fn filt(&mut self, x: NumType) -> NumType {
         self.xin.push(x);
         self.yout.shift();
 
@@ -42,12 +44,17 @@ where
     }
 }
 
-pub struct FilterCreator<const X: usize, const Y: usize> {}
+pub struct FilterCreator<NumType,const X: usize, const Y: usize> {
+    phantom: PhantomData<NumType>
+}
 
-impl<const X: usize, const Y: usize> FilterCreator<X, Y> {
-    pub fn create_filter<F>(function: F) -> DifferenceEquation<X, Y, F>
+impl<NumType,const X: usize, const Y: usize> FilterCreator<NumType,X, Y,> 
+where
+    NumType: Default + std::marker::Copy
+{
+    pub fn create_filter<F>(function: F) -> DifferenceEquation<NumType,X, Y, F>
     where
-        F: Fn(&XSeries<X>, &mut YSeries<Y>),
+        F: Fn(&XSeries<NumType,X>, &mut YSeries<NumType,Y>),
     {
         DifferenceEquation::new(function)
     }
@@ -55,6 +62,6 @@ impl<const X: usize, const Y: usize> FilterCreator<X, Y> {
 
 #[macro_export] macro_rules! create_filter {
     ($XS:literal, $YS:literal, $e:expr) => {
-        FilterCreator::<$XS,$YS>::create_filter($e)
+        FilterCreator::<f64,$XS,$YS>::create_filter($e)
     };
 }

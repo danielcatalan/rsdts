@@ -1,24 +1,24 @@
 use crate::signal::Signal;
 use std::ops::Index;
 
-pub struct XSeries<const XSIZE: usize> {
-    signal: Signal<XSIZE>,
+pub struct XSeries<NumType,const XSIZE: usize> {
+    signal: Signal<NumType,XSIZE>,
 }
 
-impl<const XSIZE: usize> XSeries<XSIZE> {
+impl<NumType:Default+ std::marker::Copy,const XSIZE: usize> XSeries<NumType,XSIZE> {
     pub fn new() -> Self {
         XSeries {
             signal: Signal::new(),
         }
     }
 
-    pub fn push(&mut self, x: f64) {
+    pub fn push(&mut self, x: NumType) {
         self.signal.push(x);
     }
 }
 
-impl<const XSIZE: usize> Index<i32> for XSeries<{ XSIZE }> {
-    type Output = f64;
+impl<NumType:Default+ std::marker::Copy, const XSIZE: usize> Index<i32> for XSeries<NumType, XSIZE > {
+    type Output = NumType;
     fn index(&self, inx: i32) -> &Self::Output {
         self.signal.get_index(inx)
     }
@@ -30,7 +30,7 @@ mod tests {
 
     #[test]
     fn xseries() {
-        let mut x_series = XSeries::<3>::new();
+        let mut x_series = XSeries::<f64,3>::new();
 
         assert_eq!(x_series[0], 0.0);
         assert_eq!(x_series[-1], 0.0);

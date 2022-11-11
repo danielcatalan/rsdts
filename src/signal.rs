@@ -1,13 +1,14 @@
 
-pub(crate) struct Signal<const SIZE: usize>{
-    pub _signal: [f64; SIZE],
+
+pub(crate) struct Signal<NumType,const SIZE: usize>{
+    pub _signal: [NumType; SIZE],
     pub zero_index: usize
 }
 
-impl<const SIZE: usize> Signal<SIZE> {
+impl<NumType: Default+ std::marker::Copy,const SIZE: usize> Signal<NumType,SIZE> {
    pub fn new() -> Self {
         Signal{
-            _signal: [0.0 ; SIZE],
+            _signal: [NumType::default(); SIZE],
             zero_index: (SIZE - 1)
         }
     }
@@ -24,17 +25,17 @@ impl<const SIZE: usize> Signal<SIZE> {
     }
 
 
-    pub fn get_index(&self, inx: i32) -> &f64 {
+    pub fn get_index(&self, inx: i32) -> &NumType {
         let i: usize = self.get_corrected_index(inx) ;
         &self._signal[i]
     }
 
-    pub fn get_index_mut(&mut self, inx: i32) -> &mut f64 {
+    pub fn get_index_mut(&mut self, inx: i32) -> &mut NumType {
         let i: usize = self.get_corrected_index(inx) ;
         &mut self._signal[i]
     }
 
-    pub fn push(&mut self, x: f64) 
+    pub fn push(&mut self, x: NumType) 
     {
         self.zero_index = (self.zero_index + 1) % SIZE;
 

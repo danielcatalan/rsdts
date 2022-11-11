@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod integration_test{
-    use crate::{FilterCreator,Filter,create_filter};
+    use crate::{Filter,create_filter,FilterCreator};
 
     #[test]
     fn straight_through() {

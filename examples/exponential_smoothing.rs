@@ -1,7 +1,7 @@
 
-use sdts::{Filter,create_filter,FilterCreator};
+use sdts::{Filter,create_filter, FilterCreator};
 
-fn exp_smooth(a:f64) -> impl Filter{
+fn exp_smooth(a:f64) -> impl Filter<f64>{
     create_filter!(1,2, move |x,y| {
         y[0] = a * x[0] + (1.0-a) * y[-1];
     })
