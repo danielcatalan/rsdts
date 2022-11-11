@@ -24,7 +24,7 @@ where
 {
     type Output = NumType;
     fn index(&self, inx: i32) -> &Self::Output {
-        self.signal.get_index(inx)
+        &self.signal[inx]
     }
 }
 

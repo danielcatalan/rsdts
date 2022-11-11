@@ -1,4 +1,11 @@
-use std::marker::Copy;
+use std::{
+    marker::Copy,
+    ops::{
+        Index,
+        IndexMut
+    }
+};
+
 
 /// Signal
 ///
@@ -51,6 +58,27 @@ where
     }
 }
 
+impl<NumType, const SIZE: usize> Index<i32> for Signal<NumType, SIZE>
+where
+    NumType: Default + Copy
+{
+    type Output = NumType;
+
+    fn index(&self, inx: i32) -> &Self::Output {
+        self.get_index(inx)
+    }
+}
+
+impl<NumType, const SIZE: usize> IndexMut<i32> for Signal<NumType, SIZE>
+where
+    NumType: Default + Copy
+{
+    fn index_mut(&mut self, inx: i32) -> &mut Self::Output {
+        self.get_index_mut(inx)
+    }
+}
+
+
 #[cfg(test)]
 mod test {
     use super::Signal;
@@ -99,5 +127,17 @@ mod test {
         assert_eq!(series.zero_index, 3);
         series.shift();
         assert_eq!(series.zero_index, 0);
+    }
+
+    #[test]
+    fn indexing() {
+        let series = Signal{
+            _signal: [4.0,3.0,2.0,1.0],
+            zero_index: 3
+        };
+
+        assert_eq!(series[0], 1.0);
+        assert_eq!(series[-1], 2.0);
+        assert_eq!(series[-2], 3.0);
     }
 }

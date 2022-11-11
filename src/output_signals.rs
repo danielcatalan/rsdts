@@ -22,13 +22,13 @@ impl<NumType:Default+ std::marker::Copy,const YSIZE: usize> YSeries<NumType,YSIZ
 impl<NumType:Default+ std::marker::Copy,const YSIZE: usize> Index<i32> for YSeries<NumType, YSIZE> {
     type Output = NumType;
     fn index(&self, inx: i32) -> &Self::Output {
-        self.signal.get_index(inx)
+        &self.signal[inx]
     }
 }
 
 impl<NumType:Default+ std::marker::Copy,const YSIZE: usize> IndexMut<i32> for YSeries<NumType, YSIZE> {
     fn index_mut(&mut self, inx: i32) -> &mut Self::Output {
-        self.signal.get_index_mut(inx)
+        &mut self.signal[inx]
     }
 
 
