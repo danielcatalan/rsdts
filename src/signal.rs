@@ -1,11 +1,7 @@
 use std::{
     marker::Copy,
-    ops::{
-        Index,
-        IndexMut
-    }
+    ops::{Index, IndexMut},
 };
-
 
 /// Signal
 ///
@@ -50,7 +46,7 @@ where
 
 impl<NumType, const SIZE: usize> Index<i32> for Signal<NumType, SIZE>
 where
-    NumType: Default + Copy
+    NumType: Default + Copy,
 {
     type Output = NumType;
 
@@ -62,14 +58,13 @@ where
 
 impl<NumType, const SIZE: usize> IndexMut<i32> for Signal<NumType, SIZE>
 where
-    NumType: Default + Copy
+    NumType: Default + Copy,
 {
     fn index_mut(&mut self, inx: i32) -> &mut Self::Output {
         let i: usize = self.get_corrected_index(inx);
         &mut self._signal[i]
     }
 }
-
 
 #[cfg(test)]
 mod test {
@@ -123,9 +118,9 @@ mod test {
 
     #[test]
     fn indexing() {
-        let series = Signal{
-            _signal: [4.0,3.0,2.0,1.0],
-            zero_index: 3
+        let series = Signal {
+            _signal: [4.0, 3.0, 2.0, 1.0],
+            zero_index: 3,
         };
 
         assert_eq!(series[0], 1.0);
