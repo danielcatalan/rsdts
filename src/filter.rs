@@ -1,7 +1,7 @@
 use std::marker::PhantomData;
 
 use crate::input_signal::InputSignal;
-use crate::output_signals::YSeries;
+use crate::output_signals::OutputSignal;
 
 pub trait Filter<NumType> {
     fn filt(&mut self, x: NumType) -> NumType;
@@ -10,29 +10,29 @@ pub trait Filter<NumType> {
 
 pub struct DifferenceEquation<NumType,const X: usize, const Y: usize, F>
 where
-    F: Fn(&InputSignal<NumType,X>, &mut YSeries<NumType,Y>),
+    F: Fn(&InputSignal<NumType,X>, &mut OutputSignal<NumType,Y>),
 {
     functor: F,
     xin: InputSignal<NumType,X>,
-    yout: YSeries<NumType,Y>,
+    yout: OutputSignal<NumType,Y>,
 }
 
 impl<NumType:Default+ std::marker::Copy,const X: usize, const Y: usize, F> DifferenceEquation<NumType,X, Y, F>
 where
-    F: Fn(&InputSignal<NumType,X>, &mut YSeries<NumType,Y>),
+    F: Fn(&InputSignal<NumType,X>, &mut OutputSignal<NumType,Y>),
 {
     fn new(function: F) -> Self {
         DifferenceEquation {
             functor: function,
             xin: InputSignal::new(),
-            yout: YSeries::new(),
+            yout: OutputSignal::new(),
         }
     }
 }
 
 impl<NumType:Default+ std::marker::Copy,const X: usize, const Y: usize, F> Filter<NumType> for DifferenceEquation<NumType,X, Y, F>
 where
-    F: Fn(&InputSignal<NumType,X>, &mut YSeries<NumType,Y>),
+    F: Fn(&InputSignal<NumType,X>, &mut OutputSignal<NumType,Y>),
 {
     fn filt(&mut self, x: NumType) -> NumType {
         self.xin.push(x);
@@ -54,7 +54,7 @@ where
 {
     pub fn create_filter<F>(function: F) -> DifferenceEquation<NumType,X, Y, F>
     where
-        F: Fn(&InputSignal<NumType,X>, &mut YSeries<NumType,Y>),
+        F: Fn(&InputSignal<NumType,X>, &mut OutputSignal<NumType,Y>),
     {
         DifferenceEquation::new(function)
     }

@@ -1,16 +1,16 @@
 use crate::signal::Signal;
 use std::ops::{Index, IndexMut};
 
-pub struct YSeries<NumType, const YSIZE: usize> {
+pub struct OutputSignal<NumType, const YSIZE: usize> {
     signal: Signal<NumType, YSIZE>,
 }
 
-impl<NumType, const YSIZE: usize> YSeries<NumType, YSIZE>
+impl<NumType, const YSIZE: usize> OutputSignal<NumType, YSIZE>
 where
     NumType: Default + Copy,
 {
     pub fn new() -> Self {
-        YSeries {
+        OutputSignal {
             signal: Signal::new(),
         }
     }
@@ -20,7 +20,7 @@ where
     }
 }
 
-impl<NumType, const YSIZE: usize> Index<i32> for YSeries<NumType, YSIZE>
+impl<NumType, const YSIZE: usize> Index<i32> for OutputSignal<NumType, YSIZE>
 where
     NumType: Default + Copy,
 {
@@ -30,7 +30,7 @@ where
     }
 }
 
-impl<NumType, const YSIZE: usize> IndexMut<i32> for YSeries<NumType, YSIZE>
+impl<NumType, const YSIZE: usize> IndexMut<i32> for OutputSignal<NumType, YSIZE>
 where
     NumType: Default + Copy,
 {
@@ -41,11 +41,11 @@ where
 
 #[cfg(test)]
 mod tests {
-    use crate::output_signals::YSeries;
+    use crate::output_signals::OutputSignal;
 
     #[test]
     fn yseries() {
-        let mut y_series = YSeries::<f64, 3>::new();
+        let mut y_series = OutputSignal::<f64, 3>::new();
 
         assert_eq!(y_series[0], 0.0);
         assert_eq!(y_series[-1], 0.0);
