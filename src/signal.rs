@@ -72,59 +72,59 @@ mod test {
 
     #[test]
     fn new() {
-        let series = Signal::<f64, 4>::new();
+        let signal = Signal::<f64, 4>::new();
 
-        assert_eq!(series._signal.len(), 4);
-        assert_eq!(series._signal, [0.0, 0.0, 0.0, 0.0]);
-        assert_eq!(series.zero_index, 3);
+        assert_eq!(signal._signal.len(), 4);
+        assert_eq!(signal._signal, [0.0, 0.0, 0.0, 0.0]);
+        assert_eq!(signal.zero_index, 3);
     }
 
     #[test]
     fn push() {
-        let mut series = Signal::<f64, 4>::new();
+        let mut signal = Signal::<f64, 4>::new();
 
-        series.push(1.0);
-        assert_eq!(series._signal, [1.0, 0.0, 0.0, 0.0]);
-        assert_eq!(series.zero_index, 0);
-        series.push(2.0);
-        assert_eq!(series._signal, [1.0, 2.0, 0.0, 0.0]);
-        assert_eq!(series.zero_index, 1);
-        series.push(3.0);
-        assert_eq!(series._signal, [1.0, 2.0, 3.0, 0.0]);
-        assert_eq!(series.zero_index, 2);
-        series.push(4.0);
-        assert_eq!(series._signal, [1.0, 2.0, 3.0, 4.0]);
-        assert_eq!(series.zero_index, 3);
-        series.push(5.0);
-        assert_eq!(series._signal, [5.0, 2.0, 3.0, 4.0]);
-        assert_eq!(series.zero_index, 0);
+        signal.push(1.0);
+        assert_eq!(signal._signal, [1.0, 0.0, 0.0, 0.0]);
+        assert_eq!(signal.zero_index, 0);
+        signal.push(2.0);
+        assert_eq!(signal._signal, [1.0, 2.0, 0.0, 0.0]);
+        assert_eq!(signal.zero_index, 1);
+        signal.push(3.0);
+        assert_eq!(signal._signal, [1.0, 2.0, 3.0, 0.0]);
+        assert_eq!(signal.zero_index, 2);
+        signal.push(4.0);
+        assert_eq!(signal._signal, [1.0, 2.0, 3.0, 4.0]);
+        assert_eq!(signal.zero_index, 3);
+        signal.push(5.0);
+        assert_eq!(signal._signal, [5.0, 2.0, 3.0, 4.0]);
+        assert_eq!(signal.zero_index, 0);
     }
 
     #[test]
     fn shift() {
-        let mut series = Signal::<f64, 4>::new();
+        let mut signal = Signal::<f64, 4>::new();
 
-        series.shift();
-        assert_eq!(series.zero_index, 0);
-        series.shift();
-        assert_eq!(series.zero_index, 1);
-        series.shift();
-        assert_eq!(series.zero_index, 2);
-        series.shift();
-        assert_eq!(series.zero_index, 3);
-        series.shift();
-        assert_eq!(series.zero_index, 0);
+        signal.shift();
+        assert_eq!(signal.zero_index, 0);
+        signal.shift();
+        assert_eq!(signal.zero_index, 1);
+        signal.shift();
+        assert_eq!(signal.zero_index, 2);
+        signal.shift();
+        assert_eq!(signal.zero_index, 3);
+        signal.shift();
+        assert_eq!(signal.zero_index, 0);
     }
 
     #[test]
     fn indexing() {
-        let series = Signal {
+        let signal = Signal {
             _signal: [4.0, 3.0, 2.0, 1.0],
             zero_index: 3,
         };
 
-        assert_eq!(series[0], 1.0);
-        assert_eq!(series[-1], 2.0);
-        assert_eq!(series[-2], 3.0);
+        assert_eq!(signal[0], 1.0);
+        assert_eq!(signal[-1], 2.0);
+        assert_eq!(signal[-2], 3.0);
     }
 }
