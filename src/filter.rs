@@ -1,7 +1,6 @@
-use std::marker::PhantomData;
-
 use crate::input_signal::InputSignal;
 use crate::output_signals::OutputSignal;
+use std::marker::PhantomData;
 
 pub trait Filter<NumType> {
     fn filt(&mut self, x: NumType) -> NumType;
