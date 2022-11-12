@@ -36,16 +36,6 @@ where
         return self.zero_index;
     }
 
-    pub fn get_index(&self, inx: i32) -> &NumType {
-        let i: usize = self.get_corrected_index(inx);
-        &self._signal[i]
-    }
-
-    pub fn get_index_mut(&mut self, inx: i32) -> &mut NumType {
-        let i: usize = self.get_corrected_index(inx);
-        &mut self._signal[i]
-    }
-
     pub fn push(&mut self, x: NumType) {
         self.zero_index = (self.zero_index + 1) % SIZE;
 
@@ -65,7 +55,8 @@ where
     type Output = NumType;
 
     fn index(&self, inx: i32) -> &Self::Output {
-        self.get_index(inx)
+        let i: usize = self.get_corrected_index(inx);
+        &self._signal[i]
     }
 }
 
@@ -74,7 +65,8 @@ where
     NumType: Default + Copy
 {
     fn index_mut(&mut self, inx: i32) -> &mut Self::Output {
-        self.get_index_mut(inx)
+        let i: usize = self.get_corrected_index(inx);
+        &mut self._signal[i]
     }
 }
 
