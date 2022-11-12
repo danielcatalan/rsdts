@@ -66,4 +66,9 @@ macro_rules! create_filter {
     ($XS:literal, $YS:literal, $e:expr) => {
         FilterCreator::<f64, $XS, $YS>::create_filter($e)
     };
+
+    ($T:ty, $XS:literal, $YS:literal, $e:expr) => {
+        FilterCreator::<$T, $XS, $YS>::create_filter($e)
+    };
+    
 }
