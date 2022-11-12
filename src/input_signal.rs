@@ -1,12 +1,15 @@
 use crate::signal::Signal;
-use std::ops::Index;
 use std::marker::Copy;
+use std::ops::Index;
 
-pub struct XSeries<NumType,const XSIZE: usize> {
-    signal: Signal<NumType,XSIZE>,
+pub struct XSeries<NumType, const XSIZE: usize> {
+    signal: Signal<NumType, XSIZE>,
 }
 
-impl<NumType:Default+ std::marker::Copy,const XSIZE: usize> XSeries<NumType,XSIZE> {
+impl<NumType, const XSIZE: usize> XSeries<NumType, XSIZE>
+where
+    NumType: Default + Copy
+{
     pub fn new() -> Self {
         XSeries {
             signal: Signal::new(),
@@ -18,9 +21,9 @@ impl<NumType:Default+ std::marker::Copy,const XSIZE: usize> XSeries<NumType,XSIZ
     }
 }
 
-impl<NumType, const XSIZE: usize> Index<i32> for XSeries<NumType, XSIZE >
+impl<NumType, const XSIZE: usize> Index<i32> for XSeries<NumType, XSIZE>
 where
-    NumType:Default + Copy
+    NumType: Default + Copy,
 {
     type Output = NumType;
     fn index(&self, inx: i32) -> &Self::Output {
@@ -34,7 +37,7 @@ mod tests {
 
     #[test]
     fn xseries() {
-        let mut x_series = XSeries::<f64,3>::new();
+        let mut x_series = XSeries::<f64, 3>::new();
 
         assert_eq!(x_series[0], 0.0);
         assert_eq!(x_series[-1], 0.0);
