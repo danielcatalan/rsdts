@@ -1,37 +1,42 @@
 use crate::signal::Signal;
-use std::ops::{Index,IndexMut};
+use std::ops::{Index, IndexMut};
 
-
-pub struct YSeries<NumType,const YSIZE: usize> {
-    signal: Signal<NumType,YSIZE>,
+pub struct YSeries<NumType, const YSIZE: usize> {
+    signal: Signal<NumType, YSIZE>,
 }
 
-impl<NumType:Default+ std::marker::Copy,const YSIZE: usize> YSeries<NumType,YSIZE> {
-
-    pub fn new() -> Self{
+impl<NumType, const YSIZE: usize> YSeries<NumType, YSIZE>
+where
+    NumType: Default + Copy,
+{
+    pub fn new() -> Self {
         YSeries {
             signal: Signal::new(),
         }
     }
 
-    pub fn shift(&mut self){
+    pub fn shift(&mut self) {
         self.signal.shift();
     }
 }
 
-impl<NumType:Default+ std::marker::Copy,const YSIZE: usize> Index<i32> for YSeries<NumType, YSIZE> {
+impl<NumType, const YSIZE: usize> Index<i32> for YSeries<NumType, YSIZE>
+where
+    NumType: Default + Copy,
+{
     type Output = NumType;
     fn index(&self, inx: i32) -> &Self::Output {
         &self.signal[inx]
     }
 }
 
-impl<NumType:Default+ std::marker::Copy,const YSIZE: usize> IndexMut<i32> for YSeries<NumType, YSIZE> {
+impl<NumType, const YSIZE: usize> IndexMut<i32> for YSeries<NumType, YSIZE>
+where
+    NumType: Default + Copy,
+{
     fn index_mut(&mut self, inx: i32) -> &mut Self::Output {
         &mut self.signal[inx]
     }
-
-
 }
 
 #[cfg(test)]
@@ -39,8 +44,8 @@ mod tests {
     use crate::output_signals::YSeries;
 
     #[test]
-    fn yseries(){
-        let mut y_series = YSeries::<f64,3>::new();
+    fn yseries() {
+        let mut y_series = YSeries::<f64, 3>::new();
 
         assert_eq!(y_series[0], 0.0);
         assert_eq!(y_series[-1], 0.0);
