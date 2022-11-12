@@ -1,5 +1,4 @@
 use crate::signal::Signal;
-use std::marker::Copy;
 use std::ops::Index;
 
 pub struct XSeries<NumType, const XSIZE: usize> {
@@ -8,7 +7,7 @@ pub struct XSeries<NumType, const XSIZE: usize> {
 
 impl<NumType, const XSIZE: usize> XSeries<NumType, XSIZE>
 where
-    NumType: Default + Copy
+    NumType: Default + Copy,
 {
     pub fn new() -> Self {
         XSeries {
