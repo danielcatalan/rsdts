@@ -1,3 +1,6 @@
+
+#![no_std]
+
 mod input_signal;
 mod output_signals;
 mod signal;
