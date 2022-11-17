@@ -10,7 +10,7 @@ pub struct DifferenceEquation<NumType, const X: usize, const Y: usize, F>
 where
     F: Fn(&InputSignal<NumType, X>, &mut OutputSignal<NumType, Y>),
 {
-    functor: F,
+    func: F,
     xin: InputSignal<NumType, X>,
     yout: OutputSignal<NumType, Y>,
 }
@@ -22,7 +22,7 @@ where
 {
     fn new(function: F) -> Self {
         DifferenceEquation {
-            functor: function,
+            func: function,
             xin: InputSignal::new(),
             yout: OutputSignal::new(),
         }
@@ -39,7 +39,7 @@ where
         self.xin.push(x);
         self.yout.shift();
 
-        (self.functor)(&self.xin, &mut self.yout);
+        (self.func)(&self.xin, &mut self.yout);
 
         return self.yout[0];
     }
