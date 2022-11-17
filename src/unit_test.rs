@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod integration_test {
-    use crate::{create_system, SystemCreator};
+    use crate::create_system;
 
     #[test]
     fn straight_through() {

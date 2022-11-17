@@ -1,8 +1,8 @@
-use sdts::{create_system, SystemCreator};
+use sdts;
 
 fn main() {
     let alpha = 0.9;
-    let mut filter1 = create_system!(f32, 1, 2, move |x, y| {
+    let mut filter1 = sdts::create_system!(f32, 1, 2, move |x, y| {
         y[0] = alpha * x[0] + (1.0 - alpha) * y[-1];
     });
 

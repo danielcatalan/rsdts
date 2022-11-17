@@ -69,7 +69,7 @@ where
 /// 
 /// # Examples
 /// ```
-/// use sdts::{create_system, SystemCreator};
+/// use sdts::create_system;
 /// 
 /// // Create Delay System
 /// let mut filter = create_system!(2,1, |x,y|{
@@ -80,11 +80,11 @@ where
 #[macro_export]
 macro_rules! create_system {
     ($XS:literal, $YS:literal, $e:expr) => {
-        SystemCreator::<f64, $XS, $YS>::create_system($e)
+        $crate::SystemCreator::<f64, $XS, $YS>::create_system($e)
     };
 
     ($T:ty, $XS:literal, $YS:literal, $e:expr) => {
-        SystemCreator::<$T, $XS, $YS>::create_system($e)
+        $crate::SystemCreator::<$T, $XS, $YS>::create_system($e)
     };
     
 }

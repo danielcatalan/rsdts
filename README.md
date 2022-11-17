@@ -10,9 +10,9 @@ Lets say we want to implement the following filter:
 We can implement the filter using the difference equation in rust as follows:
 
 ```rust
-use sdts::{create_system, SystemCreator};
+use sdts;
 
-let filter1 = create_system!(1,2,|x,y| {
+let filter1 = sdts::create_system!(1,2,|x,y| {
     y[0] = 0.9*x[0] + 0.1*y[-1];
 });
 ```
