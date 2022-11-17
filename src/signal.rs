@@ -1,6 +1,10 @@
-use std::{
+// use std::{
+//     marker::Copy,
+//     ops::{Index, IndexMut},
+// };
+use core::{
     marker::Copy,
-    ops::{Index, IndexMut},
+    ops::{Index,IndexMut}
 };
 
 /// Signal

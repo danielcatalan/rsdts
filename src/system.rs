@@ -1,6 +1,7 @@
 use crate::input_signal::InputSignal;
 use crate::output_signals::OutputSignal;
-use std::marker::PhantomData;
+// use std::marker::PhantomData;
+use core::marker::PhantomData;
 
 pub trait System<NumType> {
     fn process(&mut self, x: NumType) -> NumType;

@@ -1,5 +1,6 @@
 use crate::signal::Signal;
-use std::ops::Index;
+// use std::ops::Index;
+use core::ops::Index;
 
 pub struct InputSignal<NumType, const XSIZE: usize> {
     signal: Signal<NumType, XSIZE>,
