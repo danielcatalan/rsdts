@@ -1,7 +1,7 @@
-mod system;
-mod signal;
 mod input_signal;
 mod output_signals;
+mod signal;
+mod system;
 mod unit_test;
 
-pub use system::{Filter,DifferenceEquation,FilterCreator};
+pub use system::{DifferenceEquation, FilterCreator, System};

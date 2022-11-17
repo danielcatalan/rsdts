@@ -2,8 +2,8 @@ use crate::input_signal::InputSignal;
 use crate::output_signals::OutputSignal;
 use std::marker::PhantomData;
 
-pub trait Filter<NumType> {
-    fn filt(&mut self, x: NumType) -> NumType;
+pub trait System<NumType> {
+    fn process(&mut self, x: NumType) -> NumType;
 }
 
 pub struct DifferenceEquation<NumType, const X: usize, const Y: usize, F>
@@ -29,13 +29,13 @@ where
     }
 }
 
-impl<NumType, const X: usize, const Y: usize, F> Filter<NumType>
+impl<NumType, const X: usize, const Y: usize, F> System<NumType>
     for DifferenceEquation<NumType, X, Y, F>
 where
     NumType: Default + std::marker::Copy,
     F: Fn(&InputSignal<NumType, X>, &mut OutputSignal<NumType, Y>),
 {
-    fn filt(&mut self, x: NumType) -> NumType {
+    fn process(&mut self, x: NumType) -> NumType {
         self.xin.push(x);
         self.yout.shift();
 
