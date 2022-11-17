@@ -42,7 +42,7 @@ where
 impl<NumType, const X: usize, const Y: usize, F> System<NumType>
     for DifferenceEquation<NumType, X, Y, F>
 where
-    NumType: Default + std::marker::Copy,
+    NumType: Default + Copy,
     F: Fn(&InputSignal<NumType, X>, &mut OutputSignal<NumType, Y>),
 {
     fn process(&mut self, x: NumType) -> NumType {
