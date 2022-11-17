@@ -65,6 +65,18 @@ where
     }
 }
 
+/// Macro to create Discrete Time System.
+/// 
+/// # Examples
+/// ```
+/// use sdts::{create_system, SystemCreator};
+/// 
+/// // Create Delay System
+/// let mut filter = create_system!(2,1, |x,y|{
+///     y[0] = x[-1];
+/// }); 
+/// ```
+/// 
 #[macro_export]
 macro_rules! create_system {
     ($XS:literal, $YS:literal, $e:expr) => {
