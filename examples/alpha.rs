@@ -1,4 +1,4 @@
-use sdts::{create_system, System, SystemCreator};
+use sdts::{create_system, SystemCreator};
 
 fn main() {
     let alpha = 0.9;

@@ -27,6 +27,15 @@ where
             yout: OutputSignal::new(),
         }
     }
+
+    pub fn process(&mut self, x: NumType) -> NumType {
+        self.xin.push(x);
+        self.yout.shift();
+
+        (self.func)(&self.xin, &mut self.yout);
+
+        return self.yout[0];
+    }
 }
 
 impl<NumType, const X: usize, const Y: usize, F> System<NumType>
@@ -36,12 +45,7 @@ where
     F: Fn(&InputSignal<NumType, X>, &mut OutputSignal<NumType, Y>),
 {
     fn process(&mut self, x: NumType) -> NumType {
-        self.xin.push(x);
-        self.yout.shift();
-
-        (self.func)(&self.xin, &mut self.yout);
-
-        return self.yout[0];
+        self.process(x)
     }
 }
 
