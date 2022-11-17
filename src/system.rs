@@ -45,15 +45,15 @@ where
     }
 }
 
-pub struct FilterCreator<NumType, const X: usize, const Y: usize> {
+pub struct SystemCreator<NumType, const X: usize, const Y: usize> {
     phantom: PhantomData<NumType>,
 }
 
-impl<NumType, const X: usize, const Y: usize> FilterCreator<NumType, X, Y>
+impl<NumType, const X: usize, const Y: usize> SystemCreator<NumType, X, Y>
 where
     NumType: Default + Copy,
 {
-    pub fn create_filter<F>(function: F) -> DifferenceEquation<NumType, X, Y, F>
+    pub fn create_system<F>(function: F) -> DifferenceEquation<NumType, X, Y, F>
     where
         F: Fn(&InputSignal<NumType, X>, &mut OutputSignal<NumType, Y>),
     {
@@ -62,13 +62,13 @@ where
 }
 
 #[macro_export]
-macro_rules! create_filter {
+macro_rules! create_system {
     ($XS:literal, $YS:literal, $e:expr) => {
-        FilterCreator::<f64, $XS, $YS>::create_filter($e)
+        SystemCreator::<f64, $XS, $YS>::create_system($e)
     };
 
     ($T:ty, $XS:literal, $YS:literal, $e:expr) => {
-        FilterCreator::<$T, $XS, $YS>::create_filter($e)
+        SystemCreator::<$T, $XS, $YS>::create_system($e)
     };
     
 }

@@ -1,10 +1,10 @@
 #[cfg(test)]
 mod integration_test {
-    use crate::{create_filter, FilterCreator, System};
+    use crate::{create_system, SystemCreator, System};
 
     #[test]
     fn straight_through() {
-        let mut filter = create_filter!(1, 1, |x, y| {
+        let mut filter = create_system!(1, 1, |x, y| {
             y[0] = x[0];
         });
 
@@ -20,7 +20,7 @@ mod integration_test {
 
     #[test]
     pub fn delay() {
-        let mut filt1 = create_filter!(2, 1, |x, y| {
+        let mut filt1 = create_system!(2, 1, |x, y| {
             y[0] = x[-1];
         });
 

@@ -4,4 +4,4 @@ mod signal;
 mod system;
 mod unit_test;
 
-pub use system::{DifferenceEquation, FilterCreator, System};
+pub use system::{DifferenceEquation, SystemCreator, System};
