@@ -21,6 +21,15 @@ where
     }
 }
 
+impl<NumType, const XSIZE: usize> Default for InputSignal<NumType, XSIZE>
+where
+    NumType: Default + Copy,
+{
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl<NumType, const XSIZE: usize> Index<i32> for InputSignal<NumType, XSIZE>
 where
     NumType: Default + Copy,

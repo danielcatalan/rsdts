@@ -30,10 +30,11 @@ where
     fn get_corrected_index(&self, n: i32) -> usize {
         if n < 0 {
             let mut some = (SIZE + self.zero_index) as i32;
-            some = some + n;
+            some += n;
             return (some as usize) % SIZE;
         }
-        return self.zero_index;
+        
+        self.zero_index
     }
 
     pub fn push(&mut self, x: NumType) {

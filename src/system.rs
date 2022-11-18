@@ -35,7 +35,7 @@ where
 
         (self.func)(&self.xin, &mut self.yout);
 
-        return self.yout[0];
+        self.yout[0]
     }
 }
 
