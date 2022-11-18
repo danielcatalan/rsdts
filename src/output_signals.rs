@@ -1,5 +1,4 @@
 use crate::signal::Signal;
-// use std::ops::{Index, IndexMut};
 use core::ops::{Index, IndexMut};
 
 pub struct OutputSignal<NumType, const YSIZE: usize> {

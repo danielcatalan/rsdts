@@ -1,10 +1,6 @@
-// use std::{
-//     marker::Copy,
-//     ops::{Index, IndexMut},
-// };
 use core::{
     marker::Copy,
-    ops::{Index,IndexMut}
+    ops::{Index, IndexMut},
 };
 
 /// Signal
@@ -33,7 +29,7 @@ where
             some += n;
             return (some as usize) % SIZE;
         }
-        
+
         self.zero_index
     }
 

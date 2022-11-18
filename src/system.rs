@@ -1,6 +1,5 @@
 use crate::input_signal::InputSignal;
 use crate::output_signals::OutputSignal;
-// use std::marker::PhantomData;
 use core::marker::PhantomData;
 
 pub trait System<NumType> {
@@ -67,17 +66,17 @@ where
 }
 
 /// Macro to create Discrete Time System.
-/// 
+///
 /// # Examples
 /// ```
 /// use sdts::create_system;
-/// 
+///
 /// // Create Delay System
 /// let mut filter = create_system!(2,1, |x,y|{
 ///     y[0] = x[-1];
-/// }); 
+/// });
 /// ```
-/// 
+///
 #[macro_export]
 macro_rules! create_system {
     ($XS:literal, $YS:literal, $e:expr) => {
@@ -87,5 +86,4 @@ macro_rules! create_system {
     ($T:ty, $XS:literal, $YS:literal, $e:expr) => {
         $crate::SystemCreator::<$T, $XS, $YS>::create_system($e)
     };
-    
 }

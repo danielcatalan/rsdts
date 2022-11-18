@@ -1,4 +1,3 @@
-
 #![no_std]
 
 mod input_signal;
@@ -7,4 +6,4 @@ mod signal;
 mod system;
 mod unit_test;
 
-pub use system::{DifferenceEquation, SystemCreator, System};
+pub use system::{DifferenceEquation, System, SystemCreator};
